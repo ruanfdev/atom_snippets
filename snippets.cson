@@ -1,0 +1,1620 @@
+##########################################################
+# JAVASCRIPT
+#
+##########################################################
+'.source.js':
+  ########################################################
+  # Colorbox
+  # maak colorbox oop
+  #
+  ########################################################
+  'Colorbox (m-cbox)':
+    'prefix': 'nwk-misc-colorbox'
+    'body': """
+$.colorbox({
+  width: "98%",
+  height: "98%",
+  iframe: true,
+  fastIframe: false,
+  escKey: false,
+  overlayClose: false,
+  fixed: true,
+  href: "file.php"
+});
+    """
+  ########################################################
+  'Colorbox':
+    'prefix': 'm-cbox'
+    'body': """
+$.colorbox({
+  width: "98%",
+  height: "98%",
+  iframe: true,
+  fastIframe: false,
+  escKey: false,
+  overlayClose: false,
+  fixed: true,
+  href: "file.php"
+});
+    """
+  ########################################################
+  # Attach tip
+  # wys error op veld
+  #
+  ########################################################
+  'Attach tip (m-tip)':
+    'prefix': 'nwk-misc-attach-tip'
+    'body': """
+var $form = $('#form_naam').data('Zebra_Form');
+$form.attach_tip($('#_VELD_NAAM'), '<?php echo $translation->getValue('');?>');
+    """
+  ########################################################
+  'Attach tip':
+    'prefix': 'm-tip'
+    'body': """
+var $form = $('#form_naam').data('Zebra_Form');
+$form.attach_tip($('#_VELD_NAAM'), '<?php echo $translation->getValue('');?>');
+    """
+  ########################################################
+  # EasyUI datagrid
+  # genereer EasyUI datagrid en roep JSON vir data
+  #
+  ########################################################
+  'Create EasyUI datagrid (e-create)':
+    'prefix': 'nwk-easyui-create'
+    'body': """
+$('#ID').datagrid({
+  title: "<?php echo $translation->getValue("");?>",
+  singleSelect:	true,
+  fitColumns: true,
+  pagination: true,
+  rownumbers: true,
+  pageSize: 10,
+  remoteSort:	false,
+  multiSort: true,
+  pageList: [10,20,30,40,50],
+  toolbar: '#TOOLBAR_ID',
+  width: '100%',
+  height: window.innerHeight - 35,
+  url: 'program.php',
+  columns:[[
+    {field:"KOLOM1", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
+    {field:"KOLOM2", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
+    {field:"NAVRAAG", halign:"left", align:"center", title:"<?php echo $translation->getValue('');?>"},
+  ]],
+  onLoadError: function() {
+    var notyE = [];
+
+    notyE['message'] = "<?php echo $translation->getValue("errFout_FetchRek_db");?>";
+    notyE['position'] = 'top';
+    notyE['type'] = 'E';
+    notyE['modal'] = true;
+    notyE['timeout'] = false;
+
+    show_noty(notyE);
+  },
+  onLoadSuccess : function(data){
+    if (data.rows.length > 0 && typeof data.rows[0].ERROR != 'undefined' && data.rows[0].ERROR != '') {
+      var notyE = [];
+
+      notyE['message'] = data.rows[0].ERROR;
+      notyE['position'] = 'top';
+      notyE['type'] = 'E';
+      notyE['modal'] = true;
+      notyE['timeout'] = false;
+
+      show_noty(notyE);
+    }
+  }
+});
+
+$('#ID').datagrid('enableFilter');
+    """
+  ########################################################
+  'Create EasyUI datagrid':
+    'prefix': 'e-create'
+    'body': """
+$('#ID').datagrid({
+  title: "<?php echo $translation->getValue("");?>",
+  singleSelect:	true,
+  fitColumns:	true,
+  pagination: true,
+  rownumbers: true,
+  pageSize: 10,
+  remoteSort:	false,
+  multiSort: true,
+  pageList: [10,20,30,40,50],
+  toolbar: '#TOOLBAR_ID',
+  width: '100%',
+  height: window.innerHeight - 35,
+  url: 'program.php',
+  columns:[[
+    {field:"KOLOM1", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
+    {field:"KOLOM2", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
+    {field:"NAVRAAG", halign:"left", align:"center", title:"<?php echo $translation->getValue('');?>"},
+  ]],
+  onLoadError: function() {
+    var notyE = [];
+
+    notyE['message'] = "<?php echo $translation->getValue("errFout_FetchRek_db");?>";
+    notyE['position'] = 'top';
+    notyE['type'] = 'E';
+    notyE['modal'] = true;
+    notyE['timeout'] = false;
+
+    show_noty(notyE);
+  },
+  onLoadSuccess : function(data){
+    if (data.rows.length > 0 && typeof data.rows[0].ERROR != 'undefined' && data.rows[0].ERROR != '') {
+      var notyE = [];
+
+      notyE['message'] = data.rows[0].ERROR;
+      notyE['position'] = 'top';
+      notyE['type'] = 'E';
+      notyE['modal'] = true;
+      notyE['timeout'] = false;
+
+      show_noty(notyE);
+    }
+  }
+});
+
+$('#ID').datagrid('enableFilter');
+    """
+  ########################################################
+  # AJAX-roep
+  # kry JSON data
+  #
+  ########################################################
+  'AJAX-roep (m-ajax-call)':
+    'prefix': 'nwk-misc-ajax-call'
+    'body': """
+var $form = $('#form_naam').data('Zebra_Form');
+
+$.ajax({
+  url: "file.php",
+  dataType: 'json',
+  type: 'post',
+  data: {
+    _VAR_1: waarde1,
+    _VAR_2: waarde2,
+  }
+}).done(function(data) {
+  if (data.ERROR != '') {
+    $form.attach_tip($('#ELEMENT_NAAM'), data.ERROR);
+  } else {
+
+  }
+}).fail(function() {
+
+});
+    """
+  ########################################################
+  'AJAX-roep':
+    'prefix': 'm-ajax-call'
+    'body': """
+var $form = $('#form_naam').data('Zebra_Form');
+
+$.ajax({
+  url: "file.php",
+  dataType: 'json',
+  type: 'post',
+  data: {
+    _VAR_1: waarde1,
+    _VAR_2: waarde2,
+  }
+}).done(function(data) {
+  if (data.ERROR != '') {
+    $form.attach_tip($('#ELEMENT_NAAM'), data.ERROR);
+  } else {
+
+  }
+}).fail(function() {
+
+});
+    """
+  ########################################################
+  # AJAX-roep-plain
+  # kry JSON data
+  #
+  ########################################################
+  'AJAX-roep-plain (m-ajax-plain-call)':
+    'prefix': 'nwk-misc-ajax-plain-call'
+    'body': """
+$.ajax({
+  url: "file.php",
+  dataType: 'json',
+  type: 'post',
+  data: {
+    _VAR_1: waarde1,
+    _VAR_2: waarde2,
+  }
+}).done(function(data) {
+
+}).fail(function() {
+
+});
+    """
+  ########################################################
+  'AJAX-roep-plain':
+    'prefix': 'm-ajax-plain-call'
+    'body': """
+$.ajax({
+  url: "file.php",
+  dataType: 'json',
+  type: 'post',
+  data: {
+    _VAR_1: waarde1,
+    _VAR_2: waarde2,
+  }
+}).done(function(data) {
+
+}).fail(function() {
+
+});
+    """
+  ########################################################
+  # ZebraForm dependenciy callback
+  # callback-function vir ZebraForm callbacks
+  #
+  ########################################################
+  'ZebraForm dependency callback (z-depCallback)':
+    'prefix': 'nwk-zebra-dependencyCallback'
+    'body': """
+function callbackNaam(value, element) {
+  var segment = $('#' + element);
+
+  if (value) {
+    segment.show();
+  } else {
+    segment.hide();
+
+    segment.children().find('input, select').each(function(e) {
+      switch($(this).get(0).type) {
+        case 'select-one':
+          $(this).select2('val', '');
+          break;
+        case 'radio':
+        case 'checkbox':
+          $(this).attr("checked", false);
+          break;
+        case 'text':
+          $(this).val('');
+          break;
+      }
+    });
+  }
+}
+    """
+  ########################################################
+  'ZebraForm dependency callback':
+    'prefix': 'z-depCallback'
+    'body': """
+function callbackNaam(value, element) {
+  var segment = $('#' + element);
+
+  if (value) {
+    segment.show();
+  } else {
+    segment.hide();
+
+    segment.children().find('input, select').each(function(e) {
+      switch($(this).get(0).type) {
+        case 'select-one':
+          $(this).select2('val', '');
+          break;
+        case 'radio':
+        case 'checkbox':
+          $(this).attr("checked", false);
+          break;
+        case 'text':
+          $(this).val('');
+          break;
+      }
+    });
+  }
+}
+    """
+  ########################################################
+  # Submit-function
+  # validate en submit ZebraForm
+  #
+  ########################################################
+  'Submit-function (m-submitFunc)':
+    'prefix': 'nwk-misc-submitForm'
+    'body': """
+function submitForm() {
+  var $form = $('#form_naam').data('Zebra_Form');
+
+  if ($form.validate()) {
+    $('#btn_naam').prop('disabled', true);
+    window.parent.parent.$('.loadingFrame').show();
+    $form.submit();
+  }
+}
+    """
+  ########################################################
+  'Submit-function':
+    'prefix': 'm-submitFunc'
+    'body': """
+function submitForm() {
+  var $form = $('#form_naam').data('Zebra_Form');
+
+  if ($form.validate()) {
+    $('#btn_naam').prop('disabled', true);
+    window.parent.parent.$('.loadingFrame').show();
+    $form.submit();
+  }
+}
+    """
+  ########################################################
+  # Document.ready
+  # jQuery short-hand for document.ready
+  #
+  ########################################################
+  'Document.ready (m-docReady)':
+    'prefix': 'nwk-misc-docReady'
+    'body': """
+$(function() {
+
+});
+    """
+  ########################################################
+  'Document.ready':
+    'prefix': 'm-docReady'
+    'body': """
+$(function() {
+
+});
+    """
+  ########################################################
+  # Stel select2
+  # stel alle selects as select2
+  #
+  ########################################################
+  'Stel select2 (m-select2)':
+    'prefix': 'nwk-misc-select2'
+    'body': """
+$('select').select2({theme: 'bootstrap'});
+    """
+  ########################################################
+  'Stel select2':
+    'prefix': 'm-select2'
+    'body': """
+$('select').select2({theme: 'bootstrap'});
+    """
+  ########################################################
+  # Noty confirm
+  # wys 'n noty met 'ja'-en 'nee'-knoppies
+  #
+  ########################################################
+  'Noty confirm (nty-c)':
+    'prefix': 'nwk-noty-confirm'
+    'body': """
+var notyC = [];
+notyC['message'] = "<?php echo $translation->getValue('');?>";
+notyC['position'] = 'top';
+notyC['type'] = 'C';
+notyC['modal'] = true;
+notyC['button'] = {};
+notyC['button'][0] = {
+  'addClass': 'btn btn-success',
+  'text': "<?php echo $translation->getValue('btnJa');?>",
+  'onClick': function() {
+    $.noty.closeAll();
+
+  }
+}
+notyC['button'][1] = {
+  'addClass': 'btn btn-danger',
+  'text': "<?php echo $translation->getValue('btnNee');?>",
+  'onClick': function() {
+    $.noty.closeAll();
+  }
+}
+show_noty(notyC);
+    """
+  ########################################################
+  'Noty confirm':
+    'prefix': 'nty-c'
+    'body': """
+var notyC = [];
+notyC['message'] = "<?php echo $translation->getValue('');?>";
+notyC['position'] = 'top';
+notyC['type'] = 'C';
+notyC['modal'] = true;
+notyC['button'] = {};
+notyC['button'][0] = {
+  'addClass': 'btn btn-success',
+  'text': "<?php echo $translation->getValue('btnJa');?>",
+  'onClick': function() {
+    $.noty.closeAll();
+
+  }
+}
+notyC['button'][1] = {
+  'addClass': 'btn btn-danger',
+  'text': "<?php echo $translation->getValue('btnNee');?>",
+  'onClick': function() {
+    $.noty.closeAll();
+  }
+}
+show_noty(notyC);
+    """
+  ########################################################
+  # Noty error
+  # wys 'n fout-noty
+  #
+  ########################################################
+  'Noty error (nty-e)':
+    'prefix': 'nwk-noty-error'
+    'body': """
+var notyE = [];
+notyE['message'] = "<?php echo $translation->getValue('');?>";
+notyE['position'] = 'top';
+notyE['type'] = 'E';
+notyE['modal'] = true;
+notyE['timeout'] = false;
+show_noty(notyE);
+    """
+  ########################################################
+  'Noty error':
+    'prefix': 'nty-e'
+    'body': """
+var notyE = [];
+notyE['message'] = "<?php echo $translation->getValue('');?>";
+notyE['position'] = 'top';
+notyE['type'] = 'E';
+notyE['modal'] = true;
+notyE['timeout'] = false;
+show_noty(notyE);
+    """
+  ########################################################
+  # Noty sukses
+  # wys 'n sukses-noty
+  #
+  ########################################################
+  'Noty sukses (nty-s)':
+    'prefix': 'nwk-noty-success'
+    'body': """
+var notyS = [];
+notyS['message'] = "<?php echo $translation->getValue('');?>";
+notyS['position'] = 'top';
+notyS['type'] = 'S';
+notyS['modal'] = true;
+notyS['timeout'] = 1500;
+show_noty(notyS);
+    """
+  ########################################################
+  'Noty sukses':
+    'prefix': 'nty-s'
+    'body': """
+var notyS = [];
+notyS['message'] = "<?php echo $translation->getValue('');?>";
+notyS['position'] = 'top';
+notyS['type'] = 'S';
+notyS['modal'] = true;
+notyS['timeout'] = 1500;
+show_noty(notyS);
+    """
+  ########################################################
+  # Noty verwerk
+  # wys 'n verwerkings-noty
+  #
+  ########################################################
+  'Noty verwerk (nty-v)':
+    'prefix': 'nwk-noty-verwerk'
+    'body': """
+var notyV = [];
+notyV['type'] = 'V';
+notyV['modal'] = true;
+notyV['timeout'] = false;
+notyV['message'] = '<?php echo $translation->getValue('msgVerwerkingWA');?>';
+show_noty(notyV);
+    """
+  ########################################################
+  'Noty verwerk':
+    'prefix': 'nty-v'
+    'body': """
+var notyV = [];
+notyV['type'] = 'V';
+notyV['modal'] = true;
+notyV['timeout'] = false;
+notyV['message'] = '<?php echo $translation->getValue('msgVerwerkingWA');?>';
+show_noty(notyV);
+    """
+
+##########################################################
+# PHP
+#
+##########################################################
+'.source.php':
+
+  ########################################################
+  # Navigeer na ander blad
+  # navigeer na ander blad na validate in submit
+  #
+  ########################################################
+  'Select met produkte':
+    'prefix': 'nwk-zebra-produk'
+    'body': """
+try {
+	require_once($_SERVER['DOCUMENT_ROOT'].'/GRAAN SERVICES/DEPPRODUK/grs_dpk_001_S_srv.php');
+	$depprodukte = $DEPPRODUK->KryAktieweKodes();
+
+	if (!empty($depprodukte->faultstring)) {
+		throw new NaturalException('_NOTY', $depprodukte->faultstring);
+	} else if (!empty($depprodukte->_FOUT)) {
+		$veld = !empty($depprodukte->_VELD) ? $depprodukte->_VELD : '_NOTY';
+		throw new NaturalException($veld, $translation->getValue($depprodukte->_FOUT));
+	}
+} catch (ErrorException $e) {
+	$noty['message']  = $e->getCode().' - '.$e->getMessage().' ('.$e->getFile().' '. $e->getLine().')';
+	$noty['position'] = 'top';
+	$noty['timeout']  = false;
+	$noty['type']     = 'E';
+	$noty['modal']    = true;
+
+	$form->show_noty($noty);
+	exit;
+} catch(NaturalException $e) {
+	$noty['message']  = $e->getVeld(). ' ' . $e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+	$noty['position'] = 'top';
+	$noty['timeout']  = false;
+	$noty['type']     = 'E';
+	$noty['modal']    = true;
+
+	$form->show_noty($noty);
+	exit;
+}
+
+$produkte = array();
+
+foreach ($depprodukte as $key=>$value) {
+	// vul produkkode met 0 tot kodelengte = 4
+	$vol_kode = $DEPPRODUK->VulMetNul($value->_PRODKODE);
+
+	// lys produkkode &-beskrywing-pare vir _PRODUK-select
+	if ($_SESSION['taal'] == 'E'){
+		$produkte[$vol_kode] = $vol_kode.' - '.$value->_PROD_BESKRYF_ENG;
+	} else {
+		$produkte[$vol_kode] = $vol_kode.' - '.$value->_PROD_BESKRYF;
+	}
+}
+
+$form->add('label', 'lbl_produk', '_PRODUK', $translation->getValue('produk'));
+$obj = $form->add('select', '_PRODUK');
+$obj->add_options($produkte);
+$obj->set_attributes(array(
+	'class'	=> 'input-field control form-control'
+));
+$obj->set_rule(array(
+	'required' 	   => array('error', $translation->getValue('errRequired'))
+));
+"""
+  ########################################################
+  'Select met produk':
+    'prefix': 'z-produk'
+    'body': """
+try {
+	require_once($_SERVER['DOCUMENT_ROOT'].'/GRAAN SERVICES/DEPPRODUK/grs_dpk_001_S_srv.php');
+	$depprodukte = $DEPPRODUK->KryAktieweKodes();
+
+	if (!empty($depprodukte->faultstring)) {
+		throw new NaturalException('_NOTY', $depprodukte->faultstring);
+	} else if (!empty($depprodukte->_FOUT)) {
+		$veld = !empty($depprodukte->_VELD) ? $depprodukte->_VELD : '_NOTY';
+		throw new NaturalException($veld, $translation->getValue($depprodukte->_FOUT));
+	}
+} catch (ErrorException $e) {
+	$noty['message']  = $e->getCode().' - '.$e->getMessage().' ('.$e->getFile().' '. $e->getLine().')';
+	$noty['position'] = 'top';
+	$noty['timeout']  = false;
+	$noty['type']     = 'E';
+	$noty['modal']    = true;
+
+	$form->show_noty($noty);
+	exit;
+} catch(NaturalException $e) {
+	$noty['message']  = $e->getVeld(). ' ' . $e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+	$noty['position'] = 'top';
+	$noty['timeout']  = false;
+	$noty['type']     = 'E';
+	$noty['modal']    = true;
+
+	$form->show_noty($noty);
+	exit;
+}
+
+$produkte = array();
+
+foreach ($depprodukte as $key=>$value) {
+	// vul produkkode met 0 tot kodelengte = 4
+	$vol_kode = $DEPPRODUK->VulMetNul($value->_PRODKODE);
+
+	// lys produkkode &-beskrywing-pare vir _PRODUK-select
+	if ($_SESSION['taal'] == 'E'){
+		$produkte[$vol_kode] = $vol_kode.' - '.$value->_PROD_BESKRYF_ENG;
+	} else {
+		$produkte[$vol_kode] = $vol_kode.' - '.$value->_PROD_BESKRYF;
+	}
+}
+
+$form->add('label', 'lbl_produk', '_PRODUK', $translation->getValue('produk'));
+$obj = $form->add('select', '_PRODUK');
+$obj->add_options($produkte);
+$obj->set_attributes(array(
+	'class'	=> 'input-field control form-control'
+));
+$obj->set_rule(array(
+	'required' 	   => array('error', $translation->getValue('errRequired'))
+));
+"""
+  ########################################################
+  # Navigeer na ander blad
+  # navigeer na ander blad na validate in submit
+  #
+  ########################################################
+  'Navigeer na ander blad (z-next)':
+    'prefix': 'nwk-zebra-func-next-page'
+    'body': """
+$bladveranderlikes = array();
+
+$bladveranderlikes['_VAR1'] = 'VAR1';
+$bladveranderlikes['_VAR2'] = 'VAR2';
+
+$form->next_page('blad.php', $bladveranderlikes);
+    """
+  ########################################################
+  'Navigeer na ander blad':
+    'prefix': 'z-next'
+    'body': """
+$bladveranderlikes = array();
+
+$bladveranderlikes['_VAR1'] = 'VAR1';
+$bladveranderlikes['_VAR2'] = 'VAR2';
+
+$form->next_page('blad.php', $bladveranderlikes);
+    """
+  ########################################################
+  # Catch Natural Exception
+  # vang Natural Exception na WSDL-roep
+  #
+  ########################################################
+  'Catch NaturalException (n-catch)':
+    'prefix': 'nwk-natural-catchException'
+    'body': """
+try {
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+} catch (NaturalException $e) {
+  $noty = array();
+
+  $noty['message'] = $e->getVeld().': '. $e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $noty['position'] = 'top';
+  $noty['timeout'] = false;
+  $noty['type'] = 'E';
+  $noty['modal'] = true;
+  $noty['event'] = 'onClose: function() {	location.reload(); }';
+
+  $form->show_noty($noty);
+}
+    """
+  ########################################################
+  'Catch NaturalException':
+    'prefix': 'n-catch'
+    'body': """
+try {
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+} catch (NaturalException $e) {
+  $noty = array();
+
+  $noty['message'] = $e->getVeld().': '. $e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $noty['position'] = 'top';
+  $noty['timeout'] = false;
+  $noty['type'] = 'E';
+  $noty['modal'] = true;
+  $noty['event'] = 'onClose: function() {	location.reload(); }';
+
+  $form->show_noty($noty);
+}
+    """
+  ########################################################
+  # Roep Natural-program
+  # roep Natural-program en vang errors
+  #
+  ########################################################
+  'Roep Natural-program (n-call)':
+    'prefix': 'nwk-natural-call'
+    'body': """
+try {
+  $wsdl = "XXXX00WS";
+  $program = 'XXXX00X0';
+  $wsdl_pad = 'http://'.$_SERVER['HTTP_HOST'].':10010/wsstack/services/$program/'.$wsdl.'.wsdl?';
+
+  require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/config.php');
+  $client = new client($wsdl_pad, $wsdl);
+
+  $data = array();
+
+  $data['_'] = '';
+
+  $data['_SOEK_VELD'] = '';
+  $data['_SOEK_WAARDE'] = '';
+
+  $data['_FOUT'] = '';
+  $data['_VELD'] = '';
+  $data['_EVENT'] = '';
+  $data['_S'] = '';
+
+  $resultaat = $client->callFunction($program, $data);
+
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+} catch (NaturalException $e) {
+  $noty = array();
+
+  $noty['message'] = $e->getVeld().': '.$e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $noty['position'] = 'top';
+  $noty['timeout'] = false;
+  $noty['type'] = 'E';
+  $noty['modal'] = true;
+  $noty['event'] = 'onClose: function() {	location.reload(); }';
+
+  $form->show_noty($noty);
+}
+    """
+  ########################################################
+  'Roep Natural-program':
+    'prefix': 'n-call'
+    'body': """
+try {
+  $wsdl = "XXXX00WS";
+  $program = 'XXXX00X0';
+  $wsdl_pad = 'http://'.$_SERVER['HTTP_HOST'].':10010/wsstack/services/$program/'.$wsdl.'.wsdl?';
+
+  require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/config.php');
+  $client = new client($wsdl_pad, $wsdl);
+
+  $data = array();
+
+  $data['_'] = '';
+
+  $data['_SOEK_VELD'] = '';
+  $data['_SOEK_WAARDE'] = '';
+
+  $data['_FOUT'] = '';
+  $data['_VELD'] = '';
+  $data['_EVENT'] = '';
+  $data['_S'] = '';
+
+  $resultaat = $client->callFunction($program, $data);
+
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+} catch (NaturalException $e) {
+  $noty = array();
+
+  $noty['message'] = $e->getVeld().': '.$e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $noty['position'] = 'top';
+  $noty['timeout'] = false;
+  $noty['type'] = 'E';
+  $noty['modal'] = true;
+  $noty['event'] = 'onClose: function() {	location.reload(); }';
+
+  $form->show_noty($noty);
+}
+    """
+  ########################################################
+  # ZebraForm text
+  # genereer 'n ZebraForm-teksboks
+  #
+  ########################################################
+  'ZebraForm text (z-text)':
+    'prefix': 'nwk-zebra-ctrl-text'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('text', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  'ZebraForm text':
+    'prefix': 'z-text'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('text', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  # ZebraForm select
+  # genereer 'n ZebraForm-select
+  #
+  ########################################################
+  'ZebraForm select (z-select)':
+    'prefix': 'nwk-zebra-ctrl-select'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('select', 'NAAM', '');
+$obj->add_options($array);
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  'ZebraForm select':
+    'prefix': 'z-select'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('select', 'NAAM', '');
+$obj->add_options($array);
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  # ZebraForm date
+  # genereer 'n ZebraForm-date
+  #
+  ########################################################
+  'ZebraForm date (z-date)':
+    'prefix': 'nwk-zebra-ctrl-date'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('date', 'NAAM', '');
+$obj->set_rule(array(
+  'date' => array('error',$translation->getValue("errDate")),
+));
+$obj->format('Ymd');
+    """
+  ########################################################
+  'ZebraForm date':
+    'prefix': 'z-date'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('date', 'NAAM', '');
+$obj->set_rule(array(
+  'date' => array('error',$translation->getValue("errDate")),
+));
+$obj->format('Ymd');
+    """
+  ########################################################
+  # ZebraForm radiogroup
+  # genereer 'n ZebraForm-radiogroup
+  #
+  ########################################################
+  'ZebraForm radiogroup (z-radio)':
+    'prefix': 'nwk-zebra-ctrl-radio'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('radios', 'NAAM', $array);
+$obj->set_attributes(array(
+  'class' => 'input-field control',
+));
+    """
+  ########################################################
+  'ZebraForm radiogroup':
+    'prefix': 'z-radio'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('radios', 'NAAM', $array);
+$obj->set_attributes(array(
+  'class' => 'input-field control',
+));
+    """
+  ########################################################
+  # ZebraForm weight
+  # genereer 'n  ZebraForm-weight-veld
+  #
+  ########################################################
+  'ZebraForm weight-veld (z-weight)':
+    'prefix': 'nwk-zebra-ctrl-weight'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('weight', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  'ZebraForm weight-veld':
+    'prefix': 'z-weight'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('weight', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  # ZebraForm price
+  # genereer 'n  ZebraForm-price-veld
+  #
+  ########################################################
+  'ZebraForm price-veld (z-price)':
+    'prefix': 'nwk-zebra-ctrl-price'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('price', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  'ZebraForm price-veld':
+    'prefix': 'z-price'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('price', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  # ZebraForm percentage
+  # genereer 'n  ZebraForm-price-veld
+  #
+  ########################################################
+  'ZebraForm percentage-veld (z-perc)':
+    'prefix': 'nwk-zebra-ctrl-percentage'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('percentage', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  'ZebraForm percentage-veld':
+    'prefix': 'z-perc'
+    'body': """
+$form->add('label', 'lbl_naam', 'NAAM', $translation->getValue(''));
+$obj = $form->add('percentage', 'NAAM', '');
+$obj->set_attributes(array(
+  'class' => 'input-field control form-control',
+));
+    """
+  ########################################################
+  # ZebraForm button success
+  # genereer 'n ZebraForm-success-button
+  #
+  ########################################################
+  'ZebraForm button success (z-btn-s)':
+    'prefix': 'nwk-zebra-ctrl-button-success'
+    'body': """
+$obj = $form->add('button', 'btn_success', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-success',
+));
+    """
+  ########################################################
+  'ZebraForm button success':
+    'prefix': 'z-btn-s'
+    'body': """
+$obj = $form->add('button', 'btn_success', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-success',
+));
+    """
+  ########################################################
+  # ZebraForm button danger
+  # genereer 'n ZebraForm-danger-button
+  #
+  ########################################################
+  'ZebraForm button danger (z-btn-d)':
+    'prefix': 'nwk-zebra-ctrl-button-danger'
+    'body': """
+$obj = $form->add('button', 'btn_danger', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-danger',
+));
+    """
+  ########################################################
+  'ZebraForm button danger':
+    'prefix': 'z-btn-d'
+    'body': """
+$obj = $form->add('button', 'btn_danger', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-danger',
+));
+    """
+  ########################################################
+  # ZebraForm button warning
+  # genereer 'n ZebraForm-warning-button
+  #
+  ########################################################
+  'ZebraForm button warning (z-btn-w)':
+    'prefix': 'nwk-zebra-ctrl-button-warning'
+    'body': """
+$obj = $form->add('button', 'btn_warning', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-warning',
+));
+    """
+  ########################################################
+  'ZebraForm button warning':
+    'prefix': 'z-btn-w'
+    'body': """
+$obj = $form->add('button', 'btn_warning', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+$obj->set_attributes(array(
+  'class' => 'btn btn-warning',
+));
+    """
+  ########################################################
+  # ZebraForm vanilla submit-button
+  # genereer 'n default ZebraForm-submit-button
+  #
+  ########################################################
+  'ZebraForm vanilla submit-button (z-submit-v)':
+    'prefix': 'nwk-zebra-ctrl-submit-vanilla'
+    'body': """
+  $obj = $form->add('button', 'btn_submit', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+  $obj->set_attributes(array(
+    'class' => 'btn btn-success',
+    'type' => 'submit',
+  ));
+    """
+  ########################################################
+  'ZebraForm vanilla submit-button':
+    'prefix': 'z-submit-v'
+    'body': """
+  $obj = $form->add('button', 'btn_submit', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+  $obj->set_attributes(array(
+    'class' => 'btn btn-success',
+    'type' => 'submit',
+  ));
+    """
+  ########################################################
+  # ZebraForm JavaScript submit-button
+  # genereer 'n JavaScript ZebraForm-submit-button
+  # gebruik z-zebra-submitForm saam die button
+  #
+  ########################################################
+  'ZebraForm JavaScript submit-button (z-submit-js)':
+    'prefix': 'zz-ctrl-button-submit-js'
+    'body': """
+  $obj = $form->add('button', 'btn_submit', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+  $obj->set_attributes(array(
+    'class' => 'btn btn-success',
+    'onclick' => 'submitForm()',
+  ));
+    """
+  ########################################################
+  'ZebraForm JavaScript submit-button':
+    'prefix': 'z-submit-js'
+    'body': """
+  $obj = $form->add('button', 'btn_submit', '<span class="fa fa-icon"></span> '.$translation->getValue(''));
+  $obj->set_attributes(array(
+    'class' => 'btn btn-success',
+    'onclick' => 'submitForm()',
+  ));
+    """
+  ########################################################
+  # ZebraForm readonly attribute
+  # genereer 'n ZebraForm-readonly attribute
+  #
+  ########################################################
+  'ZebraForm readonly attribute (z-readonly)':
+    'prefix': 'nwk-zebra-attr-readonly'
+    'body': """
+'readonly' => 'readonly',
+    """
+  ########################################################
+  'ZebraForm readonly attribute':
+    'prefix': 'z-readonly'
+    'body': """
+'readonly' => 'readonly',
+    """
+  ########################################################
+  # ZebraForm autofocus attribute
+  # genereer 'n ZebraForm-autofocus attribute
+  #
+  ########################################################
+  'ZebraForm autofocus attribute (z-autofocus)':
+    'prefix': 'nwk-zebra-attr-autofocus'
+    'body': """
+'autofocus' => 'autofocus',
+    """
+  ########################################################
+  'ZebraForm autofocus attribute':
+    'prefix': 'z-autofocus'
+    'body': """
+'autofocus' => 'autofocus',
+    """
+  ########################################################
+  # ZebraForm tabindex attribute
+  # genereer 'n ZebraForm-tabindex attribute
+  #
+  ########################################################
+  'ZebraForm tabindex attribute (z-tabindex)':
+    'prefix': 'nwk-zebra-attr-tabindex'
+    'body': """
+'tabindex' => '1',
+    """
+  ########################################################
+  'ZebraForm tabindex attribute':
+    'prefix': 'z-tabindex'
+    'body': """
+'tabindex' => '1',
+    """
+  ########################################################
+  # ZebraForm oninput attribute
+  # genereer 'n ZebraForm-oninput attribute
+  #
+  ########################################################
+  'ZebraForm onInput attribute (z-oninput)':
+    'prefix': 'nwk-zebra-attr-oninput'
+    'body': """
+'oninput' => 'funksieNaam(this.value)',
+    """
+  ########################################################
+  'ZebraForm onInput attribute':
+    'prefix': 'z-oninput'
+    'body': """
+'oninput' => 'funksieNaam(this.value)',
+    """
+  ########################################################
+  # ZebraForm set case
+  # genereer 'n ZebraForm-change_case stelling
+  #
+  ########################################################
+  'ZebraForm set case (z-case)':
+    'prefix': 'nwk-zebra-set-case'
+    'body': """
+$obj->change_case('upper');
+    """
+  'ZebraForm set case':
+    'prefix': 'z-case'
+    'body': """
+$obj->change_case('upper');
+    """
+  ########################################################
+  # ZebraForm set spam filter disabled
+  # disable ZebraForm se spam filter op 'n element
+  #
+  ########################################################
+  'ZebraForm set spam filter disabled (z-spam)':
+    'prefix': 'nwk-zebra-set-spam'
+    'body': """
+$obj->disable_spam_filter();
+    """
+  ########################################################
+  'ZebraForm set spam filter disabled':
+    'prefix': 'z-spam'
+    'body': """
+$obj->disable_spam_filter();
+    """
+  ########################################################
+  # ZebraForm set rules
+  # genereer 'n ZebraForm-set_rule blok
+  #
+  ########################################################
+  'ZebraForm set rules (z-rule)':
+    'prefix': 'nwk-zebra-set-rule'
+    'body': """
+$obj->set_rule(array(
+
+));
+    """
+  ########################################################
+  'ZebraForm set rules':
+    'prefix': 'z-rule'
+    'body': """
+$obj->set_rule(array(
+
+));
+    """
+  ########################################################
+  # ZebraForm regex rule
+  # genereer 'n ZebraForm-regex rule
+  #
+  ########################################################
+  'ZebraForm regex rule (z-rgx)':
+    'prefix': 'nwk-zebra-rule-regex'
+    'body': """
+'regexp' => array('^[]{}$', 'error', $translation->getValue('errFormat')),
+    """
+  ########################################################
+  'ZebraForm regex rule':
+    'prefix': 'z-rgx'
+    'body': """
+'regexp' => array('^[]{}$', 'error', $translation->getValue('errFormat')),
+    """
+  ########################################################
+  # ZebraForm required rule
+  # genereer 'n ZebraForm-required rule
+  #
+  ########################################################
+  'ZebraForm required rule (z-req)':
+    'prefix': 'nwk-zebra-rule-required'
+    'body': """
+'required' => array('error', $translation->getValue('errRequired')),
+    """
+  ########################################################
+  'ZebraForm required rule':
+    'prefix': 'z-req'
+    'body': """
+'required' => array('error', $translation->getValue('errRequired')),
+    """
+  ########################################################
+  # ZebraForm email rule
+  # genereer 'n ZebraForm-mail rule
+  #
+  ########################################################
+  'ZebraForm email rule (z-mail)':
+    'prefix': 'nwk-zebra-rule-email'
+    'body': """
+'email' => array('error', $translation->getValue('errMail')),
+    """
+  ########################################################
+  'ZebraForm email':
+    'prefix': 'z-mail'
+    'body': """
+'email' => array('error', $translation->getValue('errMail')),
+    """
+  ########################################################
+  # ZebraForm length rule
+  # genereer 'n ZebraForm-length rule
+  #
+  ########################################################
+  'ZebraForm length rule (z-length)':
+    'prefix': 'nwk-zebra-rule-length'
+    'body': """
+'length' => array(1, 20, 'error', $translation->getValue('errLength')),
+    """
+  ########################################################
+  'ZebraForm length rule':
+    'prefix': 'z-length'
+    'body': """
+'length' => array(1, 20, 'error', $translation->getValue('errLength')),
+    """
+  ########################################################
+  # ZebraForm alphabet rule
+  # genereer 'n ZebraForm-alphabet rule
+  #
+  ########################################################
+  'ZebraForm alphabet rule (z-alphabet)':
+    'prefix': 'nwk-zebra-rule-alphabet'
+    'body': """
+'alphabet' => array('', 'error', $translation->getValue('errSlegsAlfabetiesKar')),
+    """
+  ########################################################
+  'ZebraForm alphabet rule':
+    'prefix': 'z-alphab'
+    'body': """
+'alphabet' => array('', 'error', $translation->getValue('errSlegsAlfabetiesKar')),
+    """
+  ########################################################
+  # ZebraForm number rule
+  # genereer 'n ZebraForm-number rule
+  #
+  ########################################################
+  'ZebraForm number rule (z-num)':
+    'prefix': 'nwk-zebra-rule-number'
+    'body': """
+'number' => array('', 'error', $translation->getValue('errNumeries')),
+    """
+  ########################################################
+  'ZebraForm number rule':
+    'prefix': 'z-num'
+    'body': """
+'number' => array('', 'error', $translation->getValue('errNumeries')),
+    """
+  ########################################################
+  # ZebraForm alphanumeric rule
+  # genereer 'n ZebraForm-alphanumeric rule
+  #
+  ########################################################
+  'ZebraForm alphanumeric rule (z-alphanum)':
+    'prefix': 'nwk-zebra-rule-alphanumeric'
+    'body': """
+'alphanumeric' => array('', 'error', $translation->getValue('errAlphNum')),
+    """
+  ########################################################
+  'ZebraForm alphanumeric rule':
+    'prefix': 'z-alphanum'
+    'body': """
+'alphanumeric' => array('', 'error', $translation->getValue('errAlphNum')),
+    """
+  ########################################################
+  # ZebraForm digit rule
+  # genereer 'n ZebraForm-digit rule
+  #
+  ########################################################
+  'ZebraForm digit rule (z-digit)':
+    'prefix': 'nwk-zebra-rule-digit'
+    'body': """
+'digits' => array('', 'error', $translation->getValue('errDigits')),
+    """
+  ########################################################
+  'ZebraForm digit rule':
+    'prefix': 'z-digit'
+    'body': """
+'digits' => array('', 'error', $translation->getValue('errDigits')),
+    """
+  ########################################################
+  # ZebraForm dependency rule
+  # genereer 'n ZebraForm-dependency rule
+  #
+  ########################################################
+  'ZebraForm dependency rule (z-dep)':
+    'prefix': 'nwk-zebra-rule-dependency'
+    'body': """
+'dependencies' => array(array('VELD' => 'WAARDE'), 'callbackNaam, elementNaam'),
+    """
+  ########################################################
+  'ZebraForm dependency rule':
+    'prefix': 'z-dep'
+    'body': """
+'dependencies' => array(array('VELD' => 'WAARDE'), 'callbackNaam, elementNaam'),
+    """
+  ########################################################
+  # JSON call vir EasyUI-data dependency rule
+  # kry data en errors vir EasyUI
+  #
+  ########################################################
+  'JSON call vir EasyUI (e-json)':
+    'prefix': 'nwk-easyui-json'
+    'body': """
+try {
+  $wsdl = "XXXX00WS";
+  $program = 'XXXX00X0';
+  $wsdl_pad = 'http://'.$_SERVER['HTTP_HOST'].':10010/wsstack/services/$program/'.$wsdl.'.wsdl?';
+
+  require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/config.php');
+  $client = new client($wsdl_pad, $wsdl);
+
+  $data = array();
+
+  $data['_'] = '';
+
+  $data['_SOEK_VELD'] = '';
+  $data['_SOEK_WAARDE'] = '';
+
+  $data['_FOUT'] = '';
+  $data['_VELD'] = '';
+  $data['_EVENT'] = '';
+  $data['_S'] = '';
+
+  $resultaat = $client->callFunction($program, $data);
+
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+
+  $terugvoer = array();
+
+  foreach ($resultaat as $ry) {
+    $tmp = array();
+
+    $tmp['ERROR'] = '';
+
+    $tmp['KOLOM1'] = $ry->WAARDE1;
+    $tmp['KOLOM2'] = $ry->WAARDE2;
+    $tmp['NAVRAAG'] = '<button id="btn_navraag" class="btn btn-info" onclick="navraag('."'".$ry['_ISN']."'".')"><span class="fa fa-info-circle"></span></button>';
+
+    $terugvoer[] = $tmp;
+  }
+
+  echo json_encode($terugvoer);
+} catch(NaturalException $e) {
+  $boodskap['ERROR']  = $e->getVeld().': '.$e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $terugvoer = array();
+  $terugvoer[] = $boodskap;
+  echo json_encode($terugvoer);
+}
+    """
+  ########################################################
+  'JSON call vir EasyUI':
+    'prefix': 'e-json'
+    'body': """
+try {
+  $wsdl = "XXXX00WS";
+  $program = 'XXXX00X0';
+  $wsdl_pad = 'http://'.$_SERVER['HTTP_HOST'].':10010/wsstack/services/$program/'.$wsdl.'.wsdl?';
+
+  require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/config.php');
+  $client = new client($wsdl_pad, $wsdl);
+
+  $data = array();
+
+  $data['_'] = '';
+
+  $data['_SOEK_VELD'] = '';
+  $data['_SOEK_WAARDE'] = '';
+
+  $data['_FOUT'] = '';
+  $data['_VELD'] = '';
+  $data['_EVENT'] = '';
+  $data['_S'] = '';
+
+  $resultaat = $client->callFunction($program, $data);
+
+  $veld = (!empty($resultaat->_VELD)) ? $resultaat->_VELD : '_NOTY';
+
+  if (!empty($resultaat->ErrorValue)) {
+    throw new NaturalException($veld, $resultaat->ErrorValue);
+  } else if (!empty($resultaat->faultstring)) {
+    throw new NaturalException($veld, $resultaat->faultstring);
+  } else if ((!empty($resultaat->_S) && $resultaat->_S == 'N') || !empty($resultaat->_FOUT)) {
+    $fout = !empty($resultaat->_FOUT) ? $translation->getValue($resultaat->_FOUT) : $translation->getValue('errOnverwagteFout');
+    throw new NaturalException($veld, $fout);
+  }
+
+  $terugvoer = array();
+
+  foreach ($resultaat as $ry) {
+    $tmp = array();
+
+    $tmp['ERROR'] = '';
+
+    $tmp['KOLOM1'] = $ry->WAARDE1;
+    $tmp['KOLOM2'] = $ry->WAARDE2;
+    $tmp['NAVRAAG'] = '<button id="btn_navraag" class="btn btn-info" onclick="navraag('."'".$ry['_ISN']."'".')"><span class="fa fa-info-circle"></span></button>';
+
+    $terugvoer[] = $tmp;
+  }
+
+  echo json_encode($terugvoer);
+} catch(NaturalException $e) {
+  $boodskap['ERROR']  = $e->getVeld().': '.$e->getFout().' ('.$e->getFile().' - '. $e->getLine().')';
+  $terugvoer = array();
+  $terugvoer[] = $boodskap;
+  echo json_encode($terugvoer);
+}
+    """
+  ########################################################
+  # ZebraForm error on load
+  # wys error noty net na ZebraForm gelaai is
+  # gebruik as Natural-call bo <body>-tags errors gee
+  #
+  ########################################################
+  'ZebraForm error on load (z-loadErr)':
+    'prefix': 'nwk-zebra-loadError'
+    'body': """
+if (!empty($noty)) {
+  $form->show_noty($noty);
+  exit;
+}
+    """
+  ########################################################
+  'ZebraForm error on load':
+    'prefix': 'z-loadErr'
+    'body': """
+if (!empty($noty)) {
+  $form->show_noty($noty);
+  exit;
+}
+    """
+##########################################################
+# GLOBAL
+#
+##########################################################
+'*':
+  ########################################################
+  # ZebraForm template
+  # genereer 'n ZebraForm-template
+  #
+  ########################################################
+  'ZebraForm template (z-template)':
+    'prefix': 'nwk-zebra-template'
+    'body': """
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/Language/Language.class.php');
+$translation = Language::start();
+?>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<i style="float: right; color: #AFAFAF" class="fa fa-info-circle" title="
+PHP:
+
+WSDL:
+
+NATURAL:"></i>
+</div>
+<fieldset>
+	<legend><?php echo $translation->getValue('');?></legend>
+	<div class="col-sm-12 col-md-6 col-lg-6">
+		<div class="row">
+			<div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $lbl_naam;?>
+			</div>
+      <div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $NAAM;?>
+			</div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
+		<div class="row">
+			<div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $lbl_naam1;?>
+			</div>
+      <div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $NAAM1;?>
+			</div>
+    </div>
+  </div>
+</fieldset>
+      """
+  ########################################################
+  'ZebraForm template':
+    'prefix': 'z-template'
+    'body': """
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/nwk/Language/Language.class.php');
+$translation = Language::start();
+?>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<i style="float: right; color: #AFAFAF" class="fa fa-info-circle" title="
+PHP:
+
+WSDL:
+
+NATURAL:"></i>
+</div>
+<fieldset>
+	<legend><?php echo $translation->getValue('');?></legend>
+	<div class="col-sm-12 col-md-6 col-lg-6">
+		<div class="row">
+			<div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $lbl_naam;?>
+			</div>
+      <div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $NAAM;?>
+			</div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
+		<div class="row">
+			<div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $lbl_naam1;?>
+			</div>
+      <div class="col-sm-3 col-md-4 col-lg-4">
+				<?php echo $NAAM1;?>
+			</div>
+    </div>
+  </div>
+</fieldset>
+      """
