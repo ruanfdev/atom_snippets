@@ -8,23 +8,8 @@
   # maak colorbox oop
   #
   ########################################################
-  'Colorbox (m-cbox)':
-    'prefix': 'nwk-misc-colorbox'
-    'body': """
-$.colorbox({
-  width: "98%",
-  height: "98%",
-  iframe: true,
-  fastIframe: false,
-  escKey: false,
-  overlayClose: false,
-  fixed: true,
-  href: "file.php"
-});
-    """
-  ########################################################
   'Colorbox':
-    'prefix': 'm-cbox'
+    'prefix': 'nwk-colorbox-create'
     'body': """
 $.colorbox({
   width: "98%",
@@ -42,15 +27,8 @@ $.colorbox({
   # wys error op veld
   #
   ########################################################
-  'Attach tip (m-tip)':
-    'prefix': 'nwk-misc-attach-tip'
-    'body': """
-var $form = $('#form_naam').data('Zebra_Form');
-$form.attach_tip($('#_VELD_NAAM'), '<?php echo $translation->getValue('');?>');
-    """
-  ########################################################
   'Attach tip':
-    'prefix': 'm-tip'
+    'prefix': 'nwk-attach-tip'
     'body': """
 var $form = $('#form_naam').data('Zebra_Form');
 $form.attach_tip($('#_VELD_NAAM'), '<?php echo $translation->getValue('');?>');
@@ -60,7 +38,7 @@ $form.attach_tip($('#_VELD_NAAM'), '<?php echo $translation->getValue('');?>');
   # genereer EasyUI datagrid en roep JSON vir data
   #
   ########################################################
-  'Create EasyUI datagrid (e-create)':
+  'Create EasyUI datagrid':
     'prefix': 'nwk-easyui-create'
     'body': """
 $('#ID').datagrid({
@@ -111,92 +89,15 @@ $('#ID').datagrid({
 $('#ID').datagrid('enableFilter');
     """
   ########################################################
-  'Create EasyUI datagrid':
-    'prefix': 'e-create'
-    'body': """
-$('#ID').datagrid({
-  title: "<?php echo $translation->getValue("");?>",
-  singleSelect:	true,
-  fitColumns:	true,
-  pagination: true,
-  rownumbers: true,
-  pageSize: 10,
-  remoteSort:	false,
-  multiSort: true,
-  pageList: [10,20,30,40,50],
-  toolbar: '#TOOLBAR_ID',
-  width: '100%',
-  height: window.innerHeight - 35,
-  url: 'program.php',
-  columns:[[
-    {field:"KOLOM1", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
-    {field:"KOLOM2", halign:"left", align:"left", title:"<?php echo $translation->getValue('');?>"},
-    {field:"NAVRAAG", halign:"left", align:"center", title:"<?php echo $translation->getValue('');?>"},
-  ]],
-  onLoadError: function() {
-    var notyE = [];
-
-    notyE['message'] = "<?php echo $translation->getValue("errFout_FetchRek_db");?>";
-    notyE['position'] = 'top';
-    notyE['type'] = 'E';
-    notyE['modal'] = true;
-    notyE['timeout'] = false;
-
-    show_noty(notyE);
-  },
-  onLoadSuccess : function(data){
-    if (data.rows.length > 0 && typeof data.rows[0].ERROR != 'undefined' && data.rows[0].ERROR != '') {
-      var notyE = [];
-
-      notyE['message'] = data.rows[0].ERROR;
-      notyE['position'] = 'top';
-      notyE['type'] = 'E';
-      notyE['modal'] = true;
-      notyE['timeout'] = false;
-
-      show_noty(notyE);
-    }
-  }
-});
-
-$('#ID').datagrid('enableFilter');
-    """
-  ########################################################
   # AJAX-roep
   # kry JSON data
   #
   ########################################################
-  'AJAX-roep (m-ajax-call)':
-    'prefix': 'nwk-misc-ajax-call'
-    'body': """
-var $form = $('#form_naam').data('Zebra_Form');
-
-$.ajax({
-  url: "file.php",
-  dataType: 'json',
-  type: 'post',
-  data: {
-    _VAR_1: waarde1,
-    _VAR_2: waarde2,
-  }
-}).done(function(data) {
-  if (data.ERROR != '') {
-    $form.attach_tip($('#ELEMENT_NAAM'), data.ERROR);
-  } else {
-
-  }
-}).fail(function() {
-
-});
-    """
-  ########################################################
   'AJAX-roep':
-    'prefix': 'm-ajax-call'
+    'prefix': 'nwk-ajax-call'
     'body': """
-var $form = $('#form_naam').data('Zebra_Form');
-
 $.ajax({
-  url: "file.php",
+  url: 'file.php',
   dataType: 'json',
   type: 'post',
   data: {
@@ -204,53 +105,22 @@ $.ajax({
     _VAR_2: waarde2,
   }
 }).done(function(data) {
-  if (data.ERROR != '') {
-    $form.attach_tip($('#ELEMENT_NAAM'), data.ERROR);
+  if (data._S != 'J') {
+    var notyE = [];
+    notyE['message'] = data.ErrorValue === '' ? data.ErrorType : data.ErrorValue;
+    notyE['position'] = 'top';
+    notyE['type'] = 'E';
+    notyE['modal'] = true;
+    notyE['timeout'] = false;
+    notyE['event'] = {
+      afterClose: function() {
+
+      }
+    }
+    show_noty(notyE);
   } else {
 
   }
-}).fail(function() {
-
-});
-    """
-  ########################################################
-  # AJAX-roep-plain
-  # kry JSON data
-  #
-  ########################################################
-  'AJAX-roep-plain (m-ajax-plain-call)':
-    'prefix': 'nwk-misc-ajax-plain-call'
-    'body': """
-$.ajax({
-  url: "file.php",
-  dataType: 'json',
-  type: 'post',
-  data: {
-    _VAR_1: waarde1,
-    _VAR_2: waarde2,
-  }
-}).done(function(data) {
-
-}).fail(function() {
-
-});
-    """
-  ########################################################
-  'AJAX-roep-plain':
-    'prefix': 'm-ajax-plain-call'
-    'body': """
-$.ajax({
-  url: "file.php",
-  dataType: 'json',
-  type: 'post',
-  data: {
-    _VAR_1: waarde1,
-    _VAR_2: waarde2,
-  }
-}).done(function(data) {
-
-}).fail(function() {
-
 });
     """
   ########################################################
@@ -258,37 +128,8 @@ $.ajax({
   # callback-function vir ZebraForm callbacks
   #
   ########################################################
-  'ZebraForm dependency callback (z-depCallback)':
-    'prefix': 'nwk-zebra-dependencyCallback'
-    'body': """
-function callbackNaam(value, element) {
-  var segment = $('#' + element);
-
-  if (value) {
-    segment.show();
-  } else {
-    segment.hide();
-
-    segment.children().find('input, select').each(function(e) {
-      switch($(this).get(0).type) {
-        case 'select-one':
-          $(this).select2('val', '');
-          break;
-        case 'radio':
-        case 'checkbox':
-          $(this).attr("checked", false);
-          break;
-        case 'text':
-          $(this).val('');
-          break;
-      }
-    });
-  }
-}
-    """
-  ########################################################
   'ZebraForm dependency callback':
-    'prefix': 'z-depCallback'
+    'prefix': 'nwk-zebra-dependencyCallback'
     'body': """
 function callbackNaam(value, element) {
   var segment = $('#' + element);
@@ -320,22 +161,8 @@ function callbackNaam(value, element) {
   # validate en submit ZebraForm
   #
   ########################################################
-  'Submit-function (m-submitFunc)':
-    'prefix': 'nwk-misc-submitForm'
-    'body': """
-function submitForm() {
-  var $form = $('#form_naam').data('Zebra_Form');
-
-  if ($form.validate()) {
-    $('#btn_naam').prop('disabled', true);
-    window.parent.parent.$('.loadingFrame').show();
-    $form.submit();
-  }
-}
-    """
-  ########################################################
   'Submit-function':
-    'prefix': 'm-submitFunc'
+    'prefix': 'nwk-submitForm'
     'body': """
 function submitForm() {
   var $form = $('#form_naam').data('Zebra_Form');
@@ -352,16 +179,8 @@ function submitForm() {
   # jQuery short-hand for document.ready
   #
   ########################################################
-  'Document.ready (m-docReady)':
-    'prefix': 'nwk-misc-docReady'
-    'body': """
-$(function() {
-
-});
-    """
-  ########################################################
   'Document.ready':
-    'prefix': 'm-docReady'
+    'prefix': 'nwk-docReady'
     'body': """
 $(function() {
 
@@ -372,14 +191,8 @@ $(function() {
   # stel alle selects as select2
   #
   ########################################################
-  'Stel select2 (m-select2)':
-    'prefix': 'nwk-misc-select2'
-    'body': """
-$('select').select2({theme: 'bootstrap'});
-    """
-  ########################################################
   'Stel select2':
-    'prefix': 'm-select2'
+    'prefix': 'nwk-select2'
     'body': """
 $('select').select2({theme: 'bootstrap'});
     """
@@ -388,11 +201,11 @@ $('select').select2({theme: 'bootstrap'});
   # wys 'n noty met 'ja'-en 'nee'-knoppies
   #
   ########################################################
-  'Noty confirm (nty-c)':
+  'Noty confirm':
     'prefix': 'nwk-noty-confirm'
     'body': """
 var notyC = [];
-notyC['message'] = "<?php echo $translation->getValue('');?>";
+notyC['message'] = "<?php echo $translation->getValue('${1:translation}');?>";
 notyC['position'] = 'top';
 notyC['type'] = 'C';
 notyC['modal'] = true;
@@ -402,34 +215,6 @@ notyC['button'][0] = {
   'text': "<?php echo $translation->getValue('btnJa');?>",
   'onClick': function() {
     $.noty.closeAll();
-
-  }
-}
-notyC['button'][1] = {
-  'addClass': 'btn btn-danger',
-  'text': "<?php echo $translation->getValue('btnNee');?>",
-  'onClick': function() {
-    $.noty.closeAll();
-  }
-}
-show_noty(notyC);
-    """
-  ########################################################
-  'Noty confirm':
-    'prefix': 'nty-c'
-    'body': """
-var notyC = [];
-notyC['message'] = "<?php echo $translation->getValue('');?>";
-notyC['position'] = 'top';
-notyC['type'] = 'C';
-notyC['modal'] = true;
-notyC['button'] = {};
-notyC['button'][0] = {
-  'addClass': 'btn btn-success',
-  'text': "<?php echo $translation->getValue('btnJa');?>",
-  'onClick': function() {
-    $.noty.closeAll();
-
   }
 }
 notyC['button'][1] = {
@@ -446,27 +231,37 @@ show_noty(notyC);
   # wys 'n fout-noty
   #
   ########################################################
-  'Noty error (nty-e)':
-    'prefix': 'nwk-noty-error'
+  'Noty error (using data)':
+    'prefix': 'nwk-noty-error-data'
     'body': """
 var notyE = [];
-notyE['message'] = "<?php echo $translation->getValue('');?>";
+notyE['message'] = data.ErrorValue === '' ? data.ErrorType : data.ErrorValue;
 notyE['position'] = 'top';
 notyE['type'] = 'E';
 notyE['modal'] = true;
 notyE['timeout'] = false;
+notyE['event'] = {
+  afterClose: function() {
+    $1
+  }
+}
 show_noty(notyE);
     """
   ########################################################
-  'Noty error':
-    'prefix': 'nty-e'
+  'Noty error (using translation)':
+    'prefix': 'nwk-noty-error-translation'
     'body': """
 var notyE = [];
-notyE['message'] = "<?php echo $translation->getValue('');?>";
+notyE['message'] = "<?php echo $translation->getValue('${1:translation}');?>";
 notyE['position'] = 'top';
 notyE['type'] = 'E';
 notyE['modal'] = true;
 notyE['timeout'] = false;
+notyE['event'] = {
+  afterClose: function() {
+    $2
+  }
+}
 show_noty(notyE);
     """
   ########################################################
@@ -474,27 +269,20 @@ show_noty(notyE);
   # wys 'n sukses-noty
   #
   ########################################################
-  'Noty sukses (nty-s)':
+  'Noty sukses':
     'prefix': 'nwk-noty-success'
     'body': """
 var notyS = [];
-notyS['message'] = "<?php echo $translation->getValue('');?>";
+notyS['message'] = "<?php echo \\$translation->getValue('${1:translation}');?>";
 notyS['position'] = 'top';
 notyS['type'] = 'S';
 notyS['modal'] = true;
 notyS['timeout'] = 1500;
-show_noty(notyS);
-    """
-  ########################################################
-  'Noty sukses':
-    'prefix': 'nty-s'
-    'body': """
-var notyS = [];
-notyS['message'] = "<?php echo $translation->getValue('');?>";
-notyS['position'] = 'top';
-notyS['type'] = 'S';
-notyS['modal'] = true;
-notyS['timeout'] = 1500;
+notyS['event'] = {
+  afterClose: function() {
+    $2
+  }
+}
 show_noty(notyS);
     """
   ########################################################
@@ -502,25 +290,14 @@ show_noty(notyS);
   # wys 'n verwerkings-noty
   #
   ########################################################
-  'Noty verwerk (nty-v)':
+  'Noty verwerk':
     'prefix': 'nwk-noty-verwerk'
     'body': """
 var notyV = [];
+notyV['message'] = '<?php echo $translation->getValue('msgVerwerkingWA');?>';
 notyV['type'] = 'V';
 notyV['modal'] = true;
 notyV['timeout'] = false;
-notyV['message'] = '<?php echo $translation->getValue('msgVerwerkingWA');?>';
-show_noty(notyV);
-    """
-  ########################################################
-  'Noty verwerk':
-    'prefix': 'nty-v'
-    'body': """
-var notyV = [];
-notyV['type'] = 'V';
-notyV['modal'] = true;
-notyV['timeout'] = false;
-notyV['message'] = '<?php echo $translation->getValue('msgVerwerkingWA');?>';
 show_noty(notyV);
     """
 
@@ -1618,3 +1395,23 @@ NATURAL:"></i>
   </div>
 </fieldset>
       """
+  ########################################################
+  # ZebraForm Debug
+  # debug code
+  #
+  ########################################################
+  'Debug a variable':
+    'prefix': 'nwk-debug'
+    'body': """
+require_once($_SERVER['DOCUMENT_ROOT'] .'/nwk/debug.php');
+$DEBUG->debug($${1:var_to_debug}, ${2:true});
+    """
+  ########################################################
+  'Debug PrintR':
+    'prefix': 'nwk-debug-printR'
+    'body': """
+echo '<pre>';
+print_r(${1:$result});
+echo '</pre>';
+die;
+    """
