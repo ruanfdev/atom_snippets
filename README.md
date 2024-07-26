@@ -1,2 +1,2 @@
 # Atom Snippets
-* Code Snippets for NWK to be used in Atom
+* Code Snippets for Development to be used in Atom
